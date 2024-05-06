@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: axonkafka
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+
+  # JPA 설정
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create        # DB 초기화 전략 (none, create, create-drop, update, validate)
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true      # 쿼리 로그 포맷 (정렬)
+        show_sql: true        # 쿼리 로그 출력
+
+server:
+  port: 12345
+
+axoniq:
+  console:
+    credentials: cbb325a4-0:ac6ac94af43a4b11a980ba55a10f578d
+
+axon:
+  axonserver:
+    enabled: false
+  serializer:
+    events: jackson
+  kafka:
+    fetcher:
+      enabled: true
+    clientid: kafka-axon-example
+    producer:
+      retries: 0
+      bootstrap-servers: localhost:29092
+    consumer:
+      event-processor-mode: tracking
+      bootstrap-servers: localhost:29092
+    properties:
+      security.protocol: PLAINTEXT
